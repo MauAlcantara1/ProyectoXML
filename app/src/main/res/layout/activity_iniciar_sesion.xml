@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/saiyan_sans"
-            android:text="HOLA GUERRERO Z, INTRODUCE TUS DATOS"
+            android:text="HOLA GUERRERO Z\n INTRODUCE TUS DATOS"
             android:textAlignment="center"
             android:textColor="#000"
             android:textSize="30sp" />
