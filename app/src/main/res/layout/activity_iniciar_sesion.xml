@@ -5,36 +5,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp">
+    android:gravity="top|center_horizontal"
+    android:padding="8dp"
+    android:paddingTop="32dp"
+    android:background="@drawable/fondo"
+    >
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Correo"
-        android:inputType="textEmailAddress"/>
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"/>
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="211dp"
+        android:layout_height="141dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/titulo2" />
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Iniciar Sesión"/>
+    <LinearLayout
 
-    <TextView
-        android:id="@+id/tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Crear cuenta"/>
+        android:layout_width="350sp"
+        android:layout_height="459sp"
+        android:background="@drawable/nube"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="60dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/saiyan_sans"
+            android:text="HOLA GUERRERO Z, INTRODUCE TUS DATOS"
+            android:textAlignment="center"
+            android:textColor="#000"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/contorno"
+            android:backgroundTint="@null"
+            android:gravity="center"
+            android:hint="Correo"
+            android:inputType="textEmailAddress"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/contorno"
+            android:backgroundTint="@null"
+            android:gravity="center"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#1565C0"
+            android:fontFamily="@font/saiyan_sans"
+            android:text="INICIAR SESIÓN"
+            android:textColor="#FFF"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="¿Olvidaste tu contraseña?"
+            android:textColor="#FFD54F"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="¿No tienes cuenta?"
+            android:textColor="#FFD54F"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

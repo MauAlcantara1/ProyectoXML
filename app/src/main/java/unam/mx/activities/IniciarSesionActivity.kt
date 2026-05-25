@@ -38,6 +38,7 @@ class IniciarSesionActivity : AppCompatActivity() {
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
+
         btnLogin.setOnClickListener {
 
             val ahora = System.currentTimeMillis()

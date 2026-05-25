@@ -1,9 +1,11 @@
 package unam.mx.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +36,11 @@ class RegistroActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
+        val tvRegresar = findViewById<TextView>(R.id.tvRegresar)
+
+
+
+
 
         btnRegister.setOnClickListener {
 
@@ -131,6 +138,11 @@ class RegistroActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     Toast.makeText(this, "Error al verificar nombre de usuario", Toast.LENGTH_SHORT).show()
                 }
+
+            }
+
+        tvRegresar.setOnClickListener {
+            startActivity(Intent(this, IniciarSesionActivity::class.java))
         }
     }
 }
