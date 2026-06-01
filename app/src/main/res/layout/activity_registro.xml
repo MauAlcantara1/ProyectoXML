@@ -5,29 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="top|center_horizontal"
     android:padding="8dp"
-    android:background="@drawable/fondo">
+    android:paddingTop="32dp"
+    android:background="@drawable/fondo"
+    >
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="240dp"
-        android:layout_height="63dp"
-        android:layout_marginBottom="12dp"
+        android:layout_width="333dp"
+        android:layout_height="76dp"
         android:adjustViewBounds="true"
         android:src="@drawable/titulo2" />
 
     <LinearLayout
 
-        android:layout_width="match_parent"
-        android:layout_height="569dp"
+        android:layout_width="360dp"
+        android:layout_height="469dp"
         android:background="@drawable/nube"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingLeft="52dp"
-        android:paddingRight="52dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="60dp"
+        android:paddingLeft="32dp"
+        android:paddingRight="32dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="20dp"
         >
 
 
