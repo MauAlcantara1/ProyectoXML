@@ -19,6 +19,8 @@
 
         <activity android:name=".activities.MainActivity"/>
 
+        <activity android:name=".activities.DetallesActivity"/>
+
         <activity
             android:name=".activities.IniciarSesionActivity"
             android:exported="true">
