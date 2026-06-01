@@ -18,6 +18,8 @@ import unam.mx.api.ServiceApi
 import unam.mx.databinding.ActivityMainBinding
 import unam.mx.model.ModeloPersonaje
 import kotlin.jvm.java
+import android.view.Menu
+import android.view.MenuItem
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.title = "Dragon Ball API"
 
         initReciclerView()
 
@@ -44,6 +48,33 @@ class MainActivity : AppCompatActivity() {
                     .trim()
             search(texto)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(
+            R.menu.main_menu,
+            menu
+        )
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_info -> {
+                startActivity(
+                    Intent(
+                        this,
+                        InfoProyectoActivity::class.java
+                    )
+                )
+                return true
+            }
+            R.id.menu_salir -> {
+                finishAffinity()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun initReciclerView() {

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ProyectoFinal</string>
+    <string name="equipo">Equipo</string>
+    <string name="proyecto_desarrollado_por">Proyecto desarrollado por:</string>
 </resources>
