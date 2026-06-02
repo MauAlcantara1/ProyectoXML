@@ -104,27 +104,16 @@ class DetallesActivity : AppCompatActivity() {
         }
     }
 
-    private fun showPersonaje(
-        personaje: ModeloPersonaje
-    ){
+    private fun showPersonaje(personaje: ModeloPersonaje) {
 
-        binding.nombrePersonaje.text =
-            personaje.name
+        binding.nombrePersonaje.text = personaje.name
 
-        binding.razaPersonaje.text =
-            "Raza: ${personaje.race}"
+        binding.razaPersonaje.text = personaje.race
+        binding.genPersonaje.text = personaje.gender
+        binding.kiPersonaje.text = personaje.ki
+        binding.maxKiPersonaje.text = personaje.maxKi
 
-        binding.genPersonaje.text =
-            "Género: ${personaje.gender}"
-
-        binding.kiPersonaje.text =
-            "KI: ${personaje.ki}"
-
-        binding.maxKiPersonaje.text =
-            "KI MAX: ${personaje.maxKi}"
-
-        binding.descPersonaje.text =
-            personaje.description
+        binding.descPersonaje.text = personaje.description
 
         Glide.with(this)
             .load(personaje.image)
