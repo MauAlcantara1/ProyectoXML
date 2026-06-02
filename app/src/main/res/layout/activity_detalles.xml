@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/contentLayout">
@@ -13,6 +13,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FFFFFF"
             android:orientation="vertical">
 
             <LinearLayout
@@ -21,10 +22,10 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="12dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dragon Ball API"
+                <ImageView
+                    android:layout_width="200sp"
+                    android:layout_height="80sp"
+                    android:background="@drawable/titulo2"
                     android:textSize="24sp"
                     android:textStyle="bold"/>
 
@@ -52,7 +53,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/fondo"
+                        android:src="@drawable/fondoinicio"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -70,55 +71,86 @@
 
                     <LinearLayout
                         android:id="@+id/layoutInfo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="150dp"
+                        android:layout_height="183dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:orientation="vertical"
-                        app:layout_constraintStart_toEndOf="@id/idPersonaje"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        app:layout_constraintStart_toEndOf="@id/idPersonaje"
+                        app:layout_constraintTop_toTopOf="parent">
+
 
                         <TextView
                             android:id="@+id/nombrePersonaje"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:shadowColor="#000000"
+                            android:shadowDx="4"
+                            android:shadowDy="4"
+                            android:shadowRadius="4"
                             android:text="Goku"
-                            android:textSize="26sp"
-                            android:textStyle="bold"/>
+                            android:textColor="#FFD700"
+                            android:textSize="60sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/razaPersonaje"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:textColor="#FFD700"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:shadowColor="#000000"
+                            android:shadowDx="4"
+                            android:shadowDy="4"
+                            android:shadowRadius="4"
                             android:text="Saiyan"
-                            android:textSize="18sp"/>
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/genPersonaje"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:shadowColor="#000000"
+                            android:shadowDx="4"
+                            android:shadowDy="4"
+                            android:shadowRadius="4"
+                            android:textColor="#FFD700"
                             android:text="Male"
-                            android:textSize="18sp"/>
+                            android:fontFamily="@font/saiyan_sans"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/kiPersonaje"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
+                            android:textColor="#FFD700"
                             android:text="Ki: 60,000,000"
-                            android:textSize="18sp"/>
+                            android:shadowColor="#000000"
+                            android:shadowDx="4"
+                            android:shadowDy="4"
+                            android:shadowRadius="4"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/maxKiPersonaje"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
-                            android:text="Max Ki: 90 Septillion"
-                            android:textSize="18sp"/>
+                            android:shadowColor="#000000"
+                            android:shadowDx="4"
+                            android:shadowDy="4"
+                            android:shadowRadius="4"
+                            android:textColor="#FFD700"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:text="KI MAX: 90 Septillion"
+                            android:textSize="18sp" />
 
                     </LinearLayout>
 
@@ -137,22 +169,49 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:background="@drawable/nube"
+                    android:paddingRight="32dp"
+                    android:paddingLeft="22sp"
+                    android:paddingTop="40dp"
+                    android:paddingBottom="40dp"
+                    >
 
-                    <TextView
+                    <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Descripción"
-                        android:textSize="20sp"
-                        android:textStyle="bold"/>
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:text="Descripción"
+                            android:textColor="#000000"
+                            android:textSize="40sp"
+                            android:letterSpacing="0.06"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/saiyan_sans"
+                            android:letterSpacing="0.06"
+                            android:text="Descripción"
+                            android:textColor="#FFFFFF"
+                            android:textSize="40sp"
+                            android:textStyle="bold"
+                            android:translationX="2dp"
+                            android:translationY="2dp" />
+
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/descPersonaje"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
+                        android:textColor="#000000"
                         android:textSize="16sp"/>
 
                 </LinearLayout>

@@ -118,10 +118,10 @@ class DetallesActivity : AppCompatActivity() {
             "Género: ${personaje.gender}"
 
         binding.kiPersonaje.text =
-            "Ki: ${personaje.ki}"
+            "KI: ${personaje.ki}"
 
         binding.maxKiPersonaje.text =
-            "Máximo Ki: ${personaje.maxKi}"
+            "KI MAX: ${personaje.maxKi}"
 
         binding.descPersonaje.text =
             personaje.description

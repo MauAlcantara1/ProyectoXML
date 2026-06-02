@@ -16,12 +16,10 @@ class RegistroActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-
     private fun passwordValida(password: String): Boolean {
         val specialCharacter = Regex(".*[!@#\$%^&*()_+=|<>?{}\\[\\]~-].*")
-        return password.length >= 6 && specialCharacter.matches(password)
+        return password.length >= 6 && specialCharacter.containsMatchIn(password)
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
@@ -29,46 +27,57 @@ class RegistroActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        val etNombre = findViewById<EditText>(R.id.etNombre)
-        val etPaterno = findViewById<EditText>(R.id.etApellidoPaterno)
-        val etMaterno = findViewById<EditText>(R.id.etApellidoMaterno)
-        val etUsuario = findViewById<EditText>(R.id.etUsuario)
-        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etNombre   = findViewById<EditText>(R.id.etNombre)
+        val etPaterno  = findViewById<EditText>(R.id.etApellidoPaterno)
+        val etMaterno  = findViewById<EditText>(R.id.etApellidoMaterno)
+        val etUsuario  = findViewById<EditText>(R.id.etUsuario)
+        val etEmail    = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val tvRegresar = findViewById<TextView>(R.id.tvRegresar)
-
-
-
-
+        val tvRegresar  = findViewById<TextView>(R.id.tvRegresar)
 
         btnRegister.setOnClickListener {
 
-            val nombre = etNombre.text.toString().trim()
-            val paterno = etPaterno.text.toString().trim()
-            val materno = etMaterno.text.toString().trim()
-            val usuario = etUsuario.text.toString().trim()
-            val email = etEmail.text.toString().trim()
+            val campos = listOf(
+                etNombre   to "Ingresa tu nombre",
+                etPaterno  to "Ingresa tu apellido paterno",
+                etMaterno  to "Ingresa tu apellido materno",
+                etUsuario  to "Ingresa un nombre de usuario",
+                etEmail    to "Ingresa tu correo electrónico",
+                etPassword to "Ingresa una contraseña"
+            )
+
+            var hayError = false
+            for ((campo, mensaje) in campos) {
+                if (campo.text.toString().trim().isEmpty()) {
+                    campo.error = mensaje
+                    if (!hayError) campo.requestFocus()
+                    hayError = true
+                }
+            }
+            if (hayError) return@setOnClickListener
+
+            val nombre   = etNombre.text.toString().trim()
+            val paterno  = etPaterno.text.toString().trim()
+            val materno  = etMaterno.text.toString().trim()
+            val usuario  = etUsuario.text.toString().trim()
+            val email    = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
-            if (nombre.isEmpty() || paterno.isEmpty() || materno.isEmpty() ||
-                usuario.isEmpty() || email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Correo inválido", Toast.LENGTH_SHORT).show()
+                etEmail.error = "Correo inválido"
+                etEmail.requestFocus()
                 return@setOnClickListener
             }
 
             if (usuario.length < 3) {
-                Toast.makeText(this, "El usuario debe tener mínimo 3 caracteres", Toast.LENGTH_SHORT).show()
+                etUsuario.error = "Mínimo 3 caracteres"
+                etUsuario.requestFocus()
                 return@setOnClickListener
             }
-
             if (!passwordValida(password)) {
-                Toast.makeText(this, "La contraseña debe tener mínimo 6 caracteres y un símbolo especial", Toast.LENGTH_LONG).show()
+                etPassword.error = "Mínimo 6 caracteres y un símbolo especial"
+                etPassword.requestFocus()
                 return@setOnClickListener
             }
 
@@ -77,23 +86,22 @@ class RegistroActivity : AppCompatActivity() {
                 .get()
                 .addOnSuccessListener { documents ->
                     if (!documents.isEmpty) {
-                        Toast.makeText(this, "El nombre de usuario ya existe", Toast.LENGTH_SHORT).show()
+                        etUsuario.error = "Este nombre de usuario ya está en uso"
+                        etUsuario.requestFocus()
                     } else {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-
                                     val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
 
                                     auth.currentUser?.sendEmailVerification()
                                         ?.addOnSuccessListener {
-
                                             val usuarioData = hashMapOf(
-                                                "nombre" to nombre,
-                                                "paterno" to paterno,
-                                                "materno" to materno,
-                                                "usuario" to usuario,
-                                                "email" to email
+                                                "nombre"   to nombre,
+                                                "paterno"  to paterno,
+                                                "materno"  to materno,
+                                                "usuario"  to usuario,
+                                                "email"    to email
                                             )
 
                                             db.collection("usuarios")
@@ -114,7 +122,6 @@ class RegistroActivity : AppCompatActivity() {
                                                         Toast.LENGTH_LONG
                                                     ).show()
                                                 }
-
                                         }
                                         ?.addOnFailureListener { e ->
                                             Toast.makeText(
@@ -138,9 +145,7 @@ class RegistroActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     Toast.makeText(this, "Error al verificar nombre de usuario", Toast.LENGTH_SHORT).show()
                 }
-
-            }
-
+        }
         tvRegresar.setOnClickListener {
             startActivity(Intent(this, IniciarSesionActivity::class.java))
         }
