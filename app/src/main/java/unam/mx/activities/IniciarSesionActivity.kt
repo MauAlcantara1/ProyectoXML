@@ -23,14 +23,14 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        /*
-        Cuando tengamos listo el boton de cerrar sesión se descomenta, esta parte de aqui solamente guarda al usuario verificado, si cierras la app te mantendra adentro jsajkjodjojqw
+
+//        Cuando tengamos listo el boton de cerrar sesión se descomenta, esta parte de aqui solamente guarda al usuario verificado, si cierras la app te mantendra adentro jsajkjodjojqw
         val usuarioActual = auth.currentUser
         if (usuarioActual != null && usuarioActual.isEmailVerified) {
             irAMain()
             return
         }
-        */
+
 
 
         val etEmail = findViewById<EditText>(R.id.etEmail)

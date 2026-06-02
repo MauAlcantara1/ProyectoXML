@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
+    app:cardCornerRadius="20dp"
     app:cardElevation="4dp">
 
     <LinearLayout
@@ -16,9 +16,9 @@
 
         <ImageView
             android:id="@+id/idPersonaje"
-            android:layout_width="100dp"
+            android:layout_width="70dp"
             android:layout_height="100dp"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"/>
 
         <LinearLayout
@@ -28,13 +28,21 @@
             android:layout_marginStart="12dp"
             android:orientation="vertical">
 
-            <TextView
+            <unam.mx.ui.CustomTextView
                 android:id="@+id/nombrePersonaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/saiyan_sans"
                 android:text="Goku"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:letterSpacing="0.1"
+                android:textSize="25dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textStyle="bold"
+                android:textColor="#000000"/>
+
 
             <TextView
                 android:id="@+id/razaPersonaje"
@@ -44,12 +52,17 @@
                 android:textSize="16sp"/>
 
         </LinearLayout>
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDetalles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="Detalles"/>
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            android:fontFamily="@font/saiyan_sans"
+            android:text="Detalles"
+            android:letterSpacing="0.1"
+            android:textSize="21sp"
+            android:layout_gravity="center"
+            app:cornerRadius="8dp"
+            android:backgroundTint="#f23711"/>
 
     </LinearLayout>
 

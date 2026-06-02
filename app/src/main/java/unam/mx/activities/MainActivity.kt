@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Dragon Ball API"
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         initReciclerView()
 

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/fondoinicio">
 
     <LinearLayout
         android:id="@+id/contentLayout"
@@ -12,41 +14,69 @@
         android:padding="16dp">
 
         <androidx.appcompat.widget.Toolbar
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:title="Dragon Ball API"
-            android:titleTextColor="@color/black" />
+            android:background="@color/white">
 
-        <LinearLayout
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:layout_gravity="start"
+                android:background="@drawable/titulo2"
+                android:scaleType="fitCenter"/>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="12dp">
+            android:layout_height="55dp"
+            app:cardCornerRadius="27.5dp"
+            android:layout_marginTop="12dp"
 
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Buscar personaje"/>
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeColor="@android:color/black"
+            app:strokeWidth="2dp"
+            app:cardElevation="0dp">
 
-            <Button
-                android:id="@+id/btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Buscar"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:gravity="center_vertical"
+                    android:hint="BUSCAR"
+                    android:inputType="text"
+                    android:paddingStart="20dp"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="#666666"
+                    android:textSize="16sp"/>
+
+                <ImageButton
+                    android:id="@+id/btnSearch"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="Buscar"
+                    android:padding="12dp"
+                    android:src="@android:drawable/ic_menu_search"/>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginTop="12dp"/>
+            android:layout_marginTop="12dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
