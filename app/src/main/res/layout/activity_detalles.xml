@@ -76,8 +76,8 @@
 
                         <LinearLayout
                             android:id="@+id/layoutInfo"
-                            android:layout_width="163dp"
-                            android:layout_height="290dp"
+                            android:layout_width="144dp"
+                            android:layout_height="320dp"
                             android:orientation="vertical"
                             android:padding="10dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -101,7 +101,7 @@
                                 android:paddingBottom="4dp"
                                 android:text="Nombre"
                                 android:textColor="#000000"
-                                android:textSize="35dp"
+                                android:textSize="28dp"
                                 android:textStyle="bold" />
 
                             <LinearLayout
