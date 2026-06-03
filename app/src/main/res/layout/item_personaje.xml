@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@color/white"
         android:padding="12dp">
 
         <ImageView
@@ -48,6 +49,7 @@
                 android:id="@+id/razaPersonaje"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:text="Saiyan"
                 android:textSize="16sp"/>
 

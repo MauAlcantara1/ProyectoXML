@@ -20,18 +20,28 @@ import unam.mx.model.ModeloPersonaje
 import kotlin.jvm.java
 import android.view.Menu
 import android.view.MenuItem
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: PersonajeAdapter
     private val personajes = mutableListOf<ModeloPersonaje>()
+    private lateinit var auth: FirebaseAuth
 
     private val personajesOriginales = mutableListOf<ModeloPersonaje>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        auth = FirebaseAuth.getInstance()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, window.decorView).apply {
+            hide(WindowInsetsCompat.Type.systemBars())
+            systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
@@ -70,7 +80,11 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.menu_salir -> {
-                finishAffinity()
+                auth.signOut()
+                val intent = Intent(this, IniciarSesionActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
                 return true
             }
         }

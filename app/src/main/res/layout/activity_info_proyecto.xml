@@ -55,7 +55,7 @@
                         android:letterSpacing="0.1"
                         android:textStyle="bold" />
 
-                    <TextView
+                    <unam.mx.ui.CustomTextView
                         android:layout_width="117dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/saiyan_sans"
