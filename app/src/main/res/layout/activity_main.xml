@@ -65,7 +65,8 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="Buscar"
                     android:padding="12dp"
-                    android:src="@android:drawable/ic_menu_search"/>
+                    android:src="@android:drawable/ic_arrow_forward"
+                    android:tint="#f23711"/>
 
             </LinearLayout>
 

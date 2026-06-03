@@ -1,9 +1,12 @@
 package unam.mx.activities
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Message
 import android.view.View
+import android.text.Editable
+import android.text.TextWatcher
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +23,8 @@ import unam.mx.model.ModeloPersonaje
 import kotlin.jvm.java
 import android.view.Menu
 import android.view.MenuItem
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
@@ -51,13 +56,34 @@ class MainActivity : AppCompatActivity() {
 
         loadPersonajes()
 
-        binding.btnSearch.setOnClickListener {
-            val texto =
-                binding.etSearch.text
-                    .toString()
-                    .trim()
-            search(texto)
+        // Aquí van los binding/listeners
+        binding.etSearch.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                search(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
+        binding.etSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE) {
+                search(binding.etSearch.text.toString())
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
+                binding.etSearch.clearFocus()
+                true
+            } else {
+                false
+            }
         }
+
+        binding.btnSearch.setOnClickListener {
+            search(binding.etSearch.text.toString())
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
+            binding.etSearch.clearFocus()
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -153,28 +179,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun search(nombre:String){
-        if(nombre.isBlank()){
-
+        if (nombre.isBlank()) {
             personajes.clear()
             personajes.addAll(personajesOriginales)
-
             adapter.notifyDataSetChanged()
-
             return
         }
 
-        val filtrados =
-            personajesOriginales.filter {
-
-                it.name.contains(
-                    nombre,
-                    ignoreCase = true
-                )
-            }
+        val filtrados = personajesOriginales.filter {
+            it.name.contains(nombre, ignoreCase = true)
+        }
 
         personajes.clear()
         personajes.addAll(filtrados)
-
         adapter.notifyDataSetChanged()
     }
 
