@@ -104,7 +104,7 @@ class RegistroActivity : AppCompatActivity() {
             }
 
             if (!passwordValida(password)) {
-                etPassword.error = "Mínimo 6 caracteres y un símbolo especial"
+                etPassword.error = "Mínimo 6 caracteres y un símbolo especial [!@#\$%^&*()_+=|<>?{}\\[\\]~-]"
                 etPassword.requestFocus()
                 return@setOnClickListener
             }
