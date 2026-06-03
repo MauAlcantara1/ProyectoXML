@@ -65,8 +65,8 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="Buscar"
                     android:padding="12dp"
-                    android:src="@android:drawable/ic_arrow_forward"
-                    android:tint="#f23711"/>
+                    android:src="@drawable/outline_arrow_forward_24"
+                    />
 
             </LinearLayout>
 

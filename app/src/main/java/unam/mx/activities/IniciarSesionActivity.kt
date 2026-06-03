@@ -5,14 +5,17 @@ import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import unam.mx.R
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.firebase.auth.FirebaseAuth
+import unam.mx.R
 
 class IniciarSesionActivity : AppCompatActivity() {
 
@@ -31,23 +34,32 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-
-//        Cuando tengamos listo el boton de cerrar sesión se descomenta, esta parte de aqui solamente guarda al usuario verificado, si cierras la app te mantendra adentro jsajkjodjojqw
         val usuarioActual = auth.currentUser
         if (usuarioActual != null && usuarioActual.isEmailVerified) {
             irAMain()
             return
         }
 
-        
-        val etEmail = findViewById<EditText>(R.id.etEmail)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
-        val btnLogin = findViewById<Button>(R.id.btnLogin)
-        val tvRegister = findViewById<TextView>(R.id.tvRegister)
+        val etEmail        = findViewById<EditText>(R.id.etEmail)
+        val etPassword     = findViewById<EditText>(R.id.etPassword)
+        val btnLogin       = findViewById<Button>(R.id.btnLogin)
+        val tvRegister     = findViewById<TextView>(R.id.tvRegister)
+        val btnToggle      = findViewById<ImageView>(R.id.btnTogglePassword)
 
+        var passwordVisible = false
+        btnToggle.setOnClickListener {
+            passwordVisible = !passwordVisible
+            if (passwordVisible) {
+                etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                btnToggle.setImageResource(R.drawable.ic_eye)
+            } else {
+                etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                btnToggle.setImageResource(R.drawable.ic_eye_off)
+            }
+            etPassword.setSelection(etPassword.text?.length ?: 0)
+        }
 
         btnLogin.setOnClickListener {
-
             val ahora = System.currentTimeMillis()
             if (ahora - ultimoIntento < COOLDOWN_MS) {
                 Toast.makeText(this, "Espera un momento antes de intentar de nuevo", Toast.LENGTH_SHORT).show()
@@ -55,7 +67,7 @@ class IniciarSesionActivity : AppCompatActivity() {
             }
             ultimoIntento = ahora
 
-            val email = etEmail.text.toString().trim()
+            val email    = etEmail.text.toString().trim()
             val password = etPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
@@ -72,11 +84,8 @@ class IniciarSesionActivity : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
-
                     if (task.isSuccessful) {
-
                         val user = auth.currentUser
-
                         if (user != null && user.isEmailVerified) {
                             Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
                             irAMain()
@@ -89,7 +98,6 @@ class IniciarSesionActivity : AppCompatActivity() {
                             auth.signOut()
                             btnLogin.isEnabled = true
                         }
-
                     } else {
                         val mensajeError = when {
                             task.exception?.message?.contains("no user record") == true ->
@@ -98,7 +106,6 @@ class IniciarSesionActivity : AppCompatActivity() {
                                 "Contraseña incorrecta"
                             else -> "Error al iniciar sesión. Verifica tus datos"
                         }
-
                         Toast.makeText(this, mensajeError, Toast.LENGTH_LONG).show()
                         btnLogin.isEnabled = true
                     }

@@ -7,7 +7,9 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 
-class CustomTextView(context: Context, attrs: AttributeSet? = null) :  AppCompatTextView(context, attrs) {
+
+
+class CustomTextViewDos(context: Context, attrs: AttributeSet? = null) :  AppCompatTextView(context, attrs) {
     init {
         includeFontPadding = true
         setShadowLayer(4f, -2f, 2f, Color.BLACK)
@@ -27,7 +29,7 @@ class CustomTextView(context: Context, attrs: AttributeSet? = null) :  AppCompat
         super.onDraw(canvas)
 
         paint.style = Paint.Style.FILL
-        setTextColor(Color.parseColor("#f1aa3d"))
+        setTextColor(Color.WHITE)
         super.onDraw(canvas)
         setTextColor(textColor)
     }

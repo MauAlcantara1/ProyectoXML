@@ -2,27 +2,32 @@ package unam.mx.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import unam.mx.R
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import unam.mx.R
 
 class RegistroActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
     private fun passwordValida(password: String): Boolean {
         val specialCharacter = Regex(".*[!@#\$%^&*()_+=|<>?{}\\[\\]~-].*")
         return password.length >= 6 && specialCharacter.containsMatchIn(password)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -33,25 +38,39 @@ class RegistroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_registro)
 
         auth = FirebaseAuth.getInstance()
-        db = FirebaseFirestore.getInstance()
+        db   = FirebaseFirestore.getInstance()
 
-        val etNombre   = findViewById<EditText>(R.id.etNombre)
-        val etPaterno  = findViewById<EditText>(R.id.etApellidoPaterno)
-        val etMaterno  = findViewById<EditText>(R.id.etApellidoMaterno)
-        val etUsuario  = findViewById<EditText>(R.id.etUsuario)
-        val etEmail    = findViewById<EditText>(R.id.etEmail)
-        val etPassword = findViewById<EditText>(R.id.etPassword)
+        val etNombre    = findViewById<EditText>(R.id.etNombre)
+        val etPaterno   = findViewById<EditText>(R.id.etApellidoPaterno)
+        val etMaterno   = findViewById<EditText>(R.id.etApellidoMaterno)
+        val etUsuario   = findViewById<EditText>(R.id.etUsuario)
+        val etEmail     = findViewById<EditText>(R.id.etEmail)
+        val etPassword  = findViewById<EditText>(R.id.etPassword)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
         val tvRegresar  = findViewById<TextView>(R.id.tvRegresar)
+        val btnToggle   = findViewById<ImageView>(R.id.btnTogglePassword)
+
+        var passwordVisible = false
+        btnToggle.setOnClickListener {
+            passwordVisible = !passwordVisible
+            if (passwordVisible) {
+                etPassword.transformationMethod = HideReturnsTransformationMethod.getInstance()
+                btnToggle.setImageResource(R.drawable.ic_eye)
+            } else {
+                etPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                btnToggle.setImageResource(R.drawable.ic_eye_off)
+            }
+            etPassword.setSelection(etPassword.text?.length ?: 0)
+        }
 
         btnRegister.setOnClickListener {
 
             val campos = listOf(
-                etNombre   to "Ingresa tu nombre",
-                etPaterno  to "Ingresa tu apellido paterno",
-                etMaterno  to "Ingresa tu apellido materno",
-                etUsuario  to "Ingresa un nombre de usuario",
-                etEmail    to "Ingresa tu correo electrónico",
+                etNombre  to "Ingresa tu nombre",
+                etPaterno to "Ingresa tu apellido paterno",
+                etMaterno to "Ingresa tu apellido materno",
+                etUsuario to "Ingresa un nombre de usuario",
+                etEmail   to "Ingresa tu correo electrónico",
                 etPassword to "Ingresa una contraseña"
             )
 
@@ -83,11 +102,14 @@ class RegistroActivity : AppCompatActivity() {
                 etUsuario.requestFocus()
                 return@setOnClickListener
             }
+
             if (!passwordValida(password)) {
                 etPassword.error = "Mínimo 6 caracteres y un símbolo especial"
                 etPassword.requestFocus()
                 return@setOnClickListener
             }
+
+            btnRegister.isEnabled = false
 
             db.collection("usuarios")
                 .whereEqualTo("usuario", usuario)
@@ -96,6 +118,7 @@ class RegistroActivity : AppCompatActivity() {
                     if (!documents.isEmpty) {
                         etUsuario.error = "Este nombre de usuario ya está en uso"
                         etUsuario.requestFocus()
+                        btnRegister.isEnabled = true
                     } else {
                         auth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener { task ->
@@ -105,13 +128,12 @@ class RegistroActivity : AppCompatActivity() {
                                     auth.currentUser?.sendEmailVerification()
                                         ?.addOnSuccessListener {
                                             val usuarioData = hashMapOf(
-                                                "nombre"   to nombre,
-                                                "paterno"  to paterno,
-                                                "materno"  to materno,
-                                                "usuario"  to usuario,
-                                                "email"    to email
+                                                "nombre"  to nombre,
+                                                "paterno" to paterno,
+                                                "materno" to materno,
+                                                "usuario" to usuario,
+                                                "email"   to email
                                             )
-
                                             db.collection("usuarios")
                                                 .document(uid)
                                                 .set(usuarioData)
@@ -129,6 +151,7 @@ class RegistroActivity : AppCompatActivity() {
                                                         "Usuario creado pero error al guardar perfil",
                                                         Toast.LENGTH_LONG
                                                     ).show()
+                                                    btnRegister.isEnabled = true
                                                 }
                                         }
                                         ?.addOnFailureListener { e ->
@@ -139,21 +162,23 @@ class RegistroActivity : AppCompatActivity() {
                                             ).show()
                                             finish()
                                         }
-
                                 } else {
                                     Toast.makeText(
                                         this,
                                         "Error al crear usuario: ${task.exception?.message}",
                                         Toast.LENGTH_LONG
                                     ).show()
+                                    btnRegister.isEnabled = true
                                 }
                             }
                     }
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Error al verificar nombre de usuario", Toast.LENGTH_SHORT).show()
+                    btnRegister.isEnabled = true
                 }
         }
+
         tvRegresar.setOnClickListener {
             startActivity(Intent(this, IniciarSesionActivity::class.java))
         }
